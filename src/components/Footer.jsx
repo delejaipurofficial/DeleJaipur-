@@ -126,7 +126,6 @@ export default function Footer() {
           <span className="flex gap-4">
             <a href="#" className="hover:text-white transition-colors">Privacy</a>
             <a href="#" className="hover:text-white transition-colors">Terms</a>
-            <Link to="/admin-portal" className="hover:text-white transition-colors opacity-50 hover:opacity-100">Admin</Link>
           </span>
         </div>
       </div>

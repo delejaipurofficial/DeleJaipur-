@@ -386,25 +386,34 @@ export default function CourseDetail() {
                           </span>
                         </div>
                         <div className="flex items-center gap-4">
-                          {item.hours && (
-                            <span className="text-xs text-onSurfaceVariant font-medium bg-surface-high px-2 py-1 rounded-md hidden sm:inline-block">
-                              {item.hours} hrs
-                            </span>
-                          )}
-                          {item.price && (
-                            <span className="text-xs text-primary-container font-bold bg-primary-light/10 px-2 py-1 rounded-md">
-                              ₹{Number(item.price).toLocaleString('en-IN')}
-                            </span>
-                          )}
                           {openModule === i
                             ? <ChevronUp className="w-4 h-4 text-onSurfaceVariant flex-shrink-0" />
                             : <ChevronDown className="w-4 h-4 text-onSurfaceVariant flex-shrink-0" />
                           }
                         </div>
                       </button>
-                      {openModule === i && item.name?.includes(':') && (
-                        <div className="px-4 py-3 bg-surface-low rounded-b-xl text-sm text-onSurfaceVariant border-t border-surface-high">
-                          {item.name.split(':')[1]?.trim()}
+                      {openModule === i && (
+                        <div className="px-4 py-4 bg-surface-low rounded-b-xl border-t border-surface-high">
+                          {item.name?.includes(':') && (
+                            <div className="text-sm text-onSurfaceVariant mb-3">
+                              {item.name.split(':')[1]?.trim()}
+                            </div>
+                          )}
+                          {(item.hours || item.price) && (
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+                              {item.hours && (
+                                <span className="text-xs text-onSurface font-medium bg-white border border-surface-high shadow-sm px-3 py-1.5 rounded-lg flex items-center gap-1.5">
+                                  <Clock className="w-3.5 h-3.5 text-onSurfaceVariant" />
+                                  <span className="text-onSurfaceVariant">Total Hours:</span> {item.hours} hrs
+                                </span>
+                              )}
+                              {item.price && (
+                                <span className="text-xs text-primary-container font-bold bg-primary-light/10 border border-primary-light/20 px-3 py-1.5 rounded-lg">
+                                  <span className="text-onSurfaceVariant font-medium">Price:</span> ₹{Number(item.price).toLocaleString('en-IN')}
+                                </span>
+                              )}
+                            </div>
+                          )}
                         </div>
                       )}
                     </div>

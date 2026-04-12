@@ -43,41 +43,46 @@ export default function ImageUploader({ onUploadComplete, folder = 'uploads', la
         return;
       }
 
-      // Upload to Cloudinary via unsigned preset
+      console.log('[ImageUploader] Starting upload to Cloudinary...');
+      console.log('[ImageUploader] Cloud name:', CLOUD_NAME);
+      console.log('[ImageUploader] Preset:', UPLOAD_PRESET);
+      console.log('[ImageUploader] Folder:', folder);
+      console.log('[ImageUploader] Compressed file size:', compressed.size, 'bytes');
+
+      // Upload to Cloudinary via fetch (better error visibility than XHR)
       const formData = new FormData();
       formData.append('file', compressed);
       formData.append('upload_preset', UPLOAD_PRESET);
       formData.append('folder', folder);
 
-      const xhr = new XMLHttpRequest();
-      xhr.open('POST', `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`);
+      setProgress(30);
 
-      xhr.upload.onprogress = (e) => {
-        if (e.lengthComputable) {
-          setProgress(Math.round((e.loaded / e.total) * 100));
-        }
-      };
+      const res = await fetch(
+        `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
+        { method: 'POST', body: formData }
+      );
 
-      xhr.onload = () => {
-        if (xhr.status === 200) {
-          const res = JSON.parse(xhr.responseText);
-          onUploadComplete(res.secure_url);
-          setProgress(100);
-          setUploading(false);
-        } else {
-          setError('Upload failed. Please try again.');
-          setUploading(false);
-        }
-      };
+      setProgress(90);
+      const data = await res.json();
+      console.log('[Cloudinary Response] status:', res.status, data);
 
-      xhr.onerror = () => {
-        setError('Network error. Check your connection.');
+      if (res.ok && data.secure_url) {
+        onUploadComplete(data.secure_url);
+        setProgress(100);
         setUploading(false);
-      };
-
-      xhr.send(formData);
+      } else {
+        console.error('[Cloudinary Error]', data);
+        const errMsg = data?.error?.message || 'Upload rejected by Cloudinary';
+        // Fallback to blob URL
+        const blobUrl = URL.createObjectURL(compressed);
+        onUploadComplete(blobUrl);
+        setProgress(100);
+        setUploading(false);
+        setError(`Cloudinary: ${errMsg} — check console (F12) for details`);
+      }
     } catch (err) {
-      setError('Image processing failed. Try a different image.');
+      console.error('[ImageUploader] Exception:', err);
+      setError('Image processing failed: ' + err.message);
       setUploading(false);
     }
   };

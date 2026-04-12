@@ -162,8 +162,41 @@ export default function Exams() {
         
         {/* Admin uploaded global calendar image */}
         {calendarImg && (
-          <div className="mb-10 w-full rounded-2xl overflow-hidden shadow-card border border-surface-high">
-            <img src={calendarImg} alt="DELE Exam Calendar" className="w-full h-auto object-contain max-h-[600px] bg-surface-high" />
+          <div className="mb-12 rounded-3xl overflow-hidden shadow-float border border-surface-high bg-white">
+            {/* Card header */}
+            <div className="hero-gradient px-6 py-4 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center">
+                  <Calendar className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <p className="text-white font-display font-bold text-sm sm:text-base leading-tight">DELE Exam Calendar</p>
+                  <p className="text-white/70 text-[10px] sm:text-xs">Official session schedule — Instituto Cervantes</p>
+                </div>
+              </div>
+              <span className="hidden sm:flex items-center gap-1.5 bg-white/15 border border-white/25 text-white text-xs font-semibold px-3 py-1.5 rounded-full">
+                <CheckCircle className="w-3 h-3" /> Published
+              </span>
+            </div>
+
+            {/* Image */}
+            <div className="relative bg-surface-low">
+              <img
+                src={calendarImg}
+                alt="DELE Exam Calendar"
+                className="w-full h-auto object-contain max-h-[680px]"
+              />
+              {/* Subtle bottom fade */}
+              <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white/40 to-transparent pointer-events-none" />
+            </div>
+
+            {/* Footer note */}
+            <div className="px-6 py-3 bg-surface-low border-t border-surface-high flex items-center gap-2">
+              <Award className="w-3.5 h-3.5 text-primary-container flex-shrink-0" />
+              <p className="text-xs text-onSurfaceVariant">
+                Dates are subject to change. Contact us to confirm your session before registering.
+              </p>
+            </div>
           </div>
         )}
 

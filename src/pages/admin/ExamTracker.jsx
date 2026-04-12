@@ -52,10 +52,12 @@ export default function ExamTracker() {
 
   const handleSettingsSave = async (url) => {
     try {
+      console.log('[ExamTracker] Saving calendar image URL to Firestore:', url);
       await setDoc(doc(db, 'settings', 'exams'), { calendarImageURL: url }, { merge: true });
       setCalendarImg(url);
       toast.success('Calendar image updated!');
-    } catch {
+    } catch (err) {
+      console.error('[ExamTracker] Firestore save error:', err?.code, err?.message, err);
       toast.error('Failed to update calendar image.');
     }
   };

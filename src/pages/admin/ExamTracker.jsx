@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { db } from '../../firebase';
 import {
-  collection, getDocs, addDoc, updateDoc, deleteDoc, doc, serverTimestamp, query, orderBy,
+  collection, getDocs, addDoc, updateDoc, deleteDoc, doc, serverTimestamp, query, orderBy, getDoc, setDoc
 } from 'firebase/firestore';
 import AdminLayout from './AdminLayout';
+import ImageUploader from '../../components/ImageUploader';
 import { Plus, Edit2, Trash2, X, Save, Calendar, AlertCircle, CheckCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -27,6 +28,16 @@ export default function ExamTracker() {
   const [form, setForm] = useState(EMPTY_FORM);
   const [saving, setSaving] = useState(false);
 
+  const [calendarImg, setCalendarImg] = useState('');
+
+  const fetchSettings = async () => {
+    if (!db) return;
+    try {
+      const snap = await getDoc(doc(db, 'settings', 'exams'));
+      if (snap.exists()) setCalendarImg(snap.data().calendarImageURL || '');
+    } catch {}
+  };
+
   const fetchExams = async () => {
     setLoading(true);
     if (!db) { setLoading(false); return; }
@@ -37,7 +48,17 @@ export default function ExamTracker() {
     setLoading(false);
   };
 
-  useEffect(() => { fetchExams(); }, []);
+  useEffect(() => { fetchExams(); fetchSettings(); }, []);
+
+  const handleSettingsSave = async (url) => {
+    try {
+      await setDoc(doc(db, 'settings', 'exams'), { calendarImageURL: url }, { merge: true });
+      setCalendarImg(url);
+      toast.success('Calendar image updated!');
+    } catch {
+      toast.error('Failed to update calendar image.');
+    }
+  };
 
   const openAdd = () => { setForm(EMPTY_FORM); setEditId(null); setShowModal(true); };
   const openEdit = (exam) => { setForm({ ...exam }); setEditId(exam.id); setShowModal(true); };
@@ -85,6 +106,20 @@ export default function ExamTracker() {
           <button onClick={openAdd} className="btn-primary text-sm">
             <Plus className="w-4 h-4" /> Add Session
           </button>
+        </div>
+
+        {/* Global Settings */}
+        <div className="bg-white rounded-2xl shadow-card p-6 mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div className="flex-1">
+             <h2 className="font-display font-bold text-lg text-onSurface mb-2">Calendar Image</h2>
+             <p className="text-sm text-onSurfaceVariant mb-4 max-w-md">Upload an image to display above the exam session cards on the public page.</p>
+             <ImageUploader label="Upload Image" folder="settings" onUploadComplete={handleSettingsSave} />
+          </div>
+          {calendarImg && (
+             <div className="w-full md:w-64 h-32 rounded-xl border border-surface-high overflow-hidden bg-surface-high flex-shrink-0">
+               <img src={calendarImg} alt="Global Calendar" className="w-full h-full object-cover" />
+             </div>
+          )}
         </div>
 
         <div className="card-static overflow-hidden">

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { db } from '../firebase';
-import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+import { collection, getDocs, query, orderBy, doc, getDoc } from 'firebase/firestore';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import {
@@ -86,19 +86,27 @@ function ExamCard({ exam }) {
 export default function Exams() {
   const [exams, setExams] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [calendarImg, setCalendarImg] = useState(null);
 
   useEffect(() => {
-    const fetchExams = async () => {
+    const fetchExamsAndSettings = async () => {
       if (!db) { setLoading(false); return; }
       try {
+        // Fetch exams
         const snap = await getDocs(query(collection(db, 'exams'), orderBy('deadline')));
         const data = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
         setExams(data);
+
+        // Fetch settings
+        const settingsSnap = await getDoc(doc(db, 'settings', 'exams'));
+        if (settingsSnap.exists()) {
+          setCalendarImg(settingsSnap.data().calendarImageURL || null);
+        }
       } catch (err) {
-        console.error('Failed to fetch exams:', err);
+        console.error('Failed to fetch data:', err);
       } finally { setLoading(false); }
     };
-    fetchExams();
+    fetchExamsAndSettings();
   }, []);
 
   return (
@@ -149,8 +157,16 @@ export default function Exams() {
         </div>
       </div>
 
-      {/* ── Exam Cards ── */}
+      {/* ── Exam Cards & Calendar Image ── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
+        
+        {/* Admin uploaded global calendar image */}
+        {calendarImg && (
+          <div className="mb-10 w-full rounded-2xl overflow-hidden shadow-card border border-surface-high">
+            <img src={calendarImg} alt="DELE Exam Calendar" className="w-full h-auto object-contain max-h-[600px] bg-surface-high" />
+          </div>
+        )}
+
         <div className="flex items-center gap-4 mb-8 sm:mb-10">
           <div className="accent-line" />
           <h2 className="font-display font-bold text-xl sm:text-2xl">Upcoming Sessions</h2>

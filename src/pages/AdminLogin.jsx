@@ -51,7 +51,7 @@ export default function AdminLogin() {
         {/* Logo */}
         <div className="text-center mb-10">
           <div className="mx-auto mb-4 flex items-center justify-center">
-            <img src="/8.jpg" alt="Dele Jaipur Logo" className="h-16 w-auto object-contain" />
+            <img src="/dele-logo.png" alt="Dele Jaipur Logo" className="h-16 w-auto object-contain" style={{ border: '1px solid #CC0000' }} />
           </div>
           <h1 className="font-display font-extrabold text-2xl text-onSurface">
             Dele<span className="text-primary-container">Jaipur</span> Admin

@@ -31,9 +31,21 @@ const CONTACT_INFO = [
   },
   {
     Icon: Globe,
-    title: 'Social Media',
+    title: 'LinkedIn',
+    lines: ['DELE Jaipur Centre'],
+    href: 'https://www.linkedin.com/company/dele-jaipur-centre/posts/?feedView=all',
+  },
+  {
+    Icon: Globe,
+    title: 'Instagram',
     lines: ['@delejaipur'],
-    href: '#',
+    href: 'https://www.instagram.com/delejaipur?igsh=MTkxejVnazdjcXdteg==',
+  },
+  {
+    Icon: Globe,
+    title: 'YouTube',
+    lines: ['@delejaipurcentre'],
+    href: 'https://youtube.com/@delejaipurcentre?si=gWWVGzC9vk5LBjpG',
   },
 ];
 
@@ -105,7 +117,7 @@ export default function Contact() {
       {/* ── Contact Cards strip ── */}
       <div className="bg-white border-b border-surface-high shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 sm:gap-6">
             {CONTACT_INFO.map(({ Icon, title, lines, href, note }) => (
               <div key={title} className="flex flex-col gap-1">
                 <div className="w-10 h-10 bg-primary-container/10 rounded-lg flex items-center justify-center mb-2">
@@ -114,7 +126,7 @@ export default function Contact() {
                 <p className="font-display font-bold text-onSurface text-sm">{title}</p>
                 {lines.map((l) =>
                   href ? (
-                    <a key={l} href={href} className="text-xs text-onSurfaceVariant hover:text-primary-container transition-colors flex items-center gap-1">
+                    <a key={l} href={href} target="_blank" rel="noopener noreferrer" className="text-xs text-onSurfaceVariant hover:text-primary-container transition-colors flex items-center gap-1">
                       {l} <ArrowUpRight className="w-3 h-3" />
                     </a>
                   ) : (

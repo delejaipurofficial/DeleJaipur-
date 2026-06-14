@@ -45,27 +45,27 @@ const HERO_SLIDES = [
 // ─── Static data ─────────────────────────────────────────────────────────────
 const STATIC_TESTIMONIALS = [
   {
-    id: 1,
-    quote: 'The intensity and quality of instruction at Delejaipur is remarkable. I managed to reach a confident level in English in just 4 weeks. The faculty understands the nuances of cross-cultural communication perfectly.',
-    studentName: 'Jenya Evegini',
-    country: 'Russia',
-    track: 'IELTS Track',
+    id: 'nelson-mandela',
+    quote: 'If you talk to a man in a language he understands, that goes to his head. If you talk to him in his language, that goes to his heart.',
+    studentName: 'Nelson Mandela',
+    country: 'South Africa',
+    track: 'Inspirational Quote',
     imageURL: null,
   },
   {
-    id: 2,
-    quote: 'Passing my IELTS with a band score of 8.0 was a goal I thought was out of reach. The structured practice tests at Delejaipur made all the difference.',
-    studentName: 'Priya Sharma',
-    country: 'India',
-    track: 'IELTS Academy',
+    id: 'charlemagne',
+    quote: 'To have another language is to possess a second soul.',
+    studentName: 'Charlemagne',
+    country: 'Rome',
+    track: 'Inspirational Quote',
     imageURL: null,
   },
   {
-    id: 3,
-    quote: 'The French DELF preparation here is exceptional. Native-level instructors, real exam simulations, and genuine cultural immersion. Truly world-class.',
-    studentName: 'Aditya Kumar',
-    country: 'India',
-    track: 'DELF Track',
+    id: 'frank-smith',
+    quote: 'One language sets you in a corridor for life. Two languages open every door along the way.',
+    studentName: 'Frank Smith',
+    country: 'Canada',
+    track: 'Inspirational Quote',
     imageURL: null,
   },
 ];
@@ -560,6 +560,18 @@ function CourseCardLandmark({ course }) {
           <div className="absolute top-3 left-3">
             <span className="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-primary-container text-white">
               {badge}
+            </span>
+          </div>
+        )}
+        {/* Learner type tag */}
+        {course.group && (
+          <div className="absolute top-3 right-3">
+            <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide ${
+              course.group === 'young'
+                ? 'bg-blue-500/90 text-white'
+                : 'bg-amber-500/90 text-white'
+            }`}>
+              {course.group === 'young' ? 'Young Learner' : 'Adult Learner'}
             </span>
           </div>
         )}

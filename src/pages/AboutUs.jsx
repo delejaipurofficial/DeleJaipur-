@@ -115,7 +115,7 @@ function StatCard({ value, label }) {
 
 /* ─── Main Component ─────────────────────────────────────── */
 export default function AboutUs() {
-  const [team, setTeam] = useState(STATIC_TEAM);
+  const [team, setTeam] = useState([]);
   const [heroRef, heroVisible] = useFadeIn();
   const [missionRef, missionVisible] = useFadeIn();
   const [timelineRef, timelineVisible] = useFadeIn();

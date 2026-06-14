@@ -21,6 +21,8 @@ import CourseManager from './pages/admin/CourseManager';
 import ExamTracker from './pages/admin/ExamTracker';
 import LeadsDashboard from './pages/admin/LeadsDashboard';
 import TestimonialsManager from './pages/admin/TestimonialsManager';
+import TeamManager from './pages/admin/TeamManager';
+import DatabaseSeeder from './pages/admin/DatabaseSeeder';
 
 function App() {
   return (
@@ -76,6 +78,14 @@ function App() {
           <Route
             path="/admin-portal/testimonials"
             element={<ProtectedRoute><TestimonialsManager /></ProtectedRoute>}
+          />
+          <Route
+            path="/admin-portal/team"
+            element={<ProtectedRoute><TeamManager /></ProtectedRoute>}
+          />
+          <Route
+            path="/admin-portal/seeder"
+            element={<ProtectedRoute><DatabaseSeeder /></ProtectedRoute>}
           />
 
           {/* Catch-all */}

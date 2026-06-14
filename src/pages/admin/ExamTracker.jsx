@@ -9,7 +9,12 @@ import { Plus, Edit2, Trash2, X, Save, Calendar, AlertCircle, CheckCircle } from
 import toast from 'react-hot-toast';
 
 const LEVELS_OPTIONS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
-const EMPTY_FORM = { date: '', deadline: '', levels: [], year: new Date().getFullYear(), description: '', link: '' };
+const EMPTY_FORM = { date: '', deadline: '', examDate: '', learnerType: 'both', levels: [], year: new Date().getFullYear(), description: '', link: '' };
+const LEARNER_TYPE_OPTIONS = [
+  { value: 'adult', label: 'Adult Learner (18+)' },
+  { value: 'young', label: 'Young Learner (11–17)' },
+  { value: 'both', label: 'Both' },
+];
 
 function AutoStatusBadge({ deadline }) {
   const isOpen = new Date() < new Date(deadline);
@@ -73,10 +78,12 @@ export default function ExamTracker() {
   };
 
   const handleSave = async () => {
-    if (!form.date || !form.deadline) { toast.error('Date and deadline are required.'); return; }
+    if (!form.date?.trim()) { toast.error('Session name is required (e.g. "May 2025").'); return; }
+    if (!form.deadline) { toast.error('Registration deadline is required.'); return; }
+    if (!db) { toast.error('Firebase is not configured. Cannot save in demo mode.'); return; }
     setSaving(true);
     try {
-      const data = { ...form, year: Number(form.year), updatedAt: serverTimestamp() };
+      const data = { ...form, date: form.date.trim(), year: Number(form.year), updatedAt: serverTimestamp() };
       if (editId) {
         await updateDoc(doc(db, 'exams', editId), data);
         toast.success('Exam updated!');
@@ -86,7 +93,7 @@ export default function ExamTracker() {
       }
       setShowModal(false);
       fetchExams();
-    } catch { toast.error('Failed to save.'); }
+    } catch (err) { console.error(err); toast.error('Failed to save: ' + (err?.message || 'Unknown error')); }
     setSaving(false);
   };
 
@@ -139,7 +146,7 @@ export default function ExamTracker() {
               <table className="w-full min-w-[600px]">
                 <thead>
                   <tr className="bg-surface-low border-b border-surface-high">
-                    {['Session', 'Registration Deadline', 'Levels', 'Auto-Status', 'Actions'].map((h) => (
+                    {['Session', 'Exam Date', 'Reg. Deadline', 'Learner Type', 'Levels', 'Status', 'Actions'].map((h) => (
                       <th key={h} className="text-left px-6 py-3 text-xs font-semibold text-onSurfaceVariant uppercase tracking-wider">{h}</th>
                     ))}
                   </tr>
@@ -152,7 +159,21 @@ export default function ExamTracker() {
                         <p className="text-xs text-onSurfaceVariant">{exam.description}</p>
                       </td>
                       <td className="px-6 py-4 text-sm text-onSurface">
+                        {exam.examDate ? new Date(exam.examDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '—'}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-onSurface">
                         {exam.deadline ? new Date(exam.deadline).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '—'}
+                      </td>
+                      <td className="px-6 py-4">
+                        {exam.learnerType === 'young' && (
+                          <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-bold rounded-lg">Young Learner</span>
+                        )}
+                        {exam.learnerType === 'adult' && (
+                          <span className="px-2 py-1 bg-amber-100 text-amber-700 text-xs font-bold rounded-lg">Adult Learner</span>
+                        )}
+                        {(!exam.learnerType || exam.learnerType === 'both') && (
+                          <span className="px-2 py-1 bg-surface-high text-onSurfaceVariant text-xs font-bold rounded-lg">Both</span>
+                        )}
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex flex-wrap gap-1">
@@ -203,6 +224,30 @@ export default function ExamTracker() {
                 <div>
                   <label className="label-sm text-xs text-onSurfaceVariant mb-1 block">Registration Deadline *</label>
                   <input type="date" value={form.deadline} onChange={(e) => setForm((p) => ({ ...p, deadline: e.target.value }))} className="input-field" />
+                </div>
+                <div>
+                  <label className="label-sm text-xs text-onSurfaceVariant mb-1 block">Examination Date</label>
+                  <input type="date" value={form.examDate || ''} onChange={(e) => setForm((p) => ({ ...p, examDate: e.target.value }))} className="input-field" />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="label-sm text-xs text-onSurfaceVariant mb-1 block">Learner Type</label>
+                  <div className="flex flex-col gap-2 mt-1">
+                    {LEARNER_TYPE_OPTIONS.map((opt) => (
+                      <label key={opt.value} className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          name="learnerType"
+                          value={opt.value}
+                          checked={(form.learnerType || 'both') === opt.value}
+                          onChange={(e) => setForm((p) => ({ ...p, learnerType: e.target.value }))}
+                          className="accent-primary-container"
+                        />
+                        <span className="text-sm text-onSurface">{opt.label}</span>
+                      </label>
+                    ))}
+                  </div>
                 </div>
                 <div>
                   <label className="label-sm text-xs text-onSurfaceVariant mb-1 block">Year</label>

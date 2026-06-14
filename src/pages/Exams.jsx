@@ -22,6 +22,7 @@ function ExamCard({ exam }) {
   const deadline = new Date(exam.deadline);
   const isOpen = today < deadline;
   const daysLeft = Math.ceil((deadline - today) / (1000 * 60 * 60 * 24));
+  const examDate = exam.examDate ? new Date(exam.examDate) : null;
 
   return (
     <div className="bg-white rounded-2xl shadow-card hover:shadow-float hover:-translate-y-1 transition-all duration-300 p-5 sm:p-8 flex flex-col">
@@ -33,14 +34,33 @@ function ExamCard({ exam }) {
           </div>
           <p className="text-sm text-onSurfaceVariant">{exam.description}</p>
         </div>
-        <span className={`flex-shrink-0 px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 ${isOpen ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-surface-high text-secondary'
-          }`}>
-          {isOpen ? <CheckCircle className="w-3 h-3" /> : <AlertCircle className="w-3 h-3" />}
-          {isOpen ? 'Open' : 'Closed'}
-        </span>
+        <div className="flex flex-col items-end gap-2 flex-shrink-0">
+          <span className={`px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 ${isOpen ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-surface-high text-secondary'}`}>
+            {isOpen ? <CheckCircle className="w-3 h-3" /> : <AlertCircle className="w-3 h-3" />}
+            {isOpen ? 'Open' : 'Closed'}
+          </span>
+          {exam.learnerType && exam.learnerType !== 'both' && (
+            <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide ${exam.learnerType === 'young' ? 'bg-blue-50 text-blue-700 border border-blue-200' : 'bg-amber-50 text-amber-700 border border-amber-200'}`}>
+              {exam.learnerType === 'young' ? 'Young Learner' : 'Adult Learner'}
+            </span>
+          )}
+        </div>
       </div>
 
-      {/* Deadline */}
+      {/* Exam Date */}
+      {examDate && (
+        <div className="flex items-center gap-3 p-3 bg-primary-light/10 border border-primary-light/30 rounded-xl mb-3">
+          <Calendar className="w-4 h-4 text-primary-container flex-shrink-0" />
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-primary-container">Examination Date</p>
+            <p className="font-bold text-onSurface text-sm">
+              {examDate.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* Registration Deadline */}
       <div className="flex items-center gap-3 p-3 bg-surface-low rounded-xl mb-5">
         <Clock className="w-4 h-4 text-onSurfaceVariant flex-shrink-0" />
         <div>

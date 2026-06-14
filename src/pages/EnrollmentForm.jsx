@@ -162,7 +162,7 @@ export default function EnrollmentForm() {
       {/* Hero */}
       <div className="hero-gradient pt-20 pb-12 sm:pb-16 px-4 text-center">
         <div className="mx-auto mb-4 flex items-center justify-center">
-          <img src="/8.jpg" alt="Dele Jaipur Logo" className="h-16 w-auto object-contain brightness-0 invert" />
+          <img src="/dele-logo.png" alt="Dele Jaipur Logo" className="h-16 w-auto object-contain brightness-0 invert" style={{ border: '1px solid #CC0000' }} />
         </div>
         <p className="text-white/60 text-xs font-semibold uppercase tracking-widest mb-2 sm:mb-3">
           Delejaipur Language Institute

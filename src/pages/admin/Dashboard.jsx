@@ -160,11 +160,12 @@ export default function Dashboard() {
         </div>
 
         {/* Quick Links */}
-        <div className="grid md:grid-cols-3 gap-4 mt-8">
+        <div className="grid md:grid-cols-4 gap-4 mt-8">
           {[
             { label: 'Add New Course', desc: 'Publish a course to the website', to: '/admin-portal/courses', color: 'hero-gradient' },
             { label: 'Add Exam Date', desc: 'Schedule a DELE exam session', to: '/admin-portal/exams', color: 'bg-purple-500' },
             { label: 'View All Leads', desc: 'Manage student inquiries', to: '/admin-portal/leads', color: 'bg-blue-500' },
+            { label: 'Database Seeder', desc: 'Reset & seed all database data', to: '/admin-portal/seeder', color: 'bg-green-600' },
           ].map(({ label, desc, to, color }) => (
             <Link key={label} to={to} className="card p-5 flex items-center gap-4 group">
               <div className={`w-10 h-10 ${color} rounded-xl flex items-center justify-center flex-shrink-0`}>

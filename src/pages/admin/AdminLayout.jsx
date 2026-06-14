@@ -5,7 +5,7 @@ import { signOut } from 'firebase/auth';
 import { useAuth } from '../../hooks/useAuth';
 import {
   Globe, LayoutDashboard, BookOpen, Calendar, Users,
-  LogOut, Menu, X, ChevronRight, MessageSquareQuote
+  LogOut, Menu, X, ChevronRight, MessageSquareQuote, UserCircle, Database
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -15,6 +15,8 @@ const navItems = [
   { to: '/admin-portal/exams', icon: Calendar, label: 'Exam Tracker' },
   { to: '/admin-portal/leads', icon: Users, label: 'Student Leads' },
   { to: '/admin-portal/testimonials', icon: MessageSquareQuote, label: 'Testimonials' },
+  { to: '/admin-portal/team', icon: UserCircle, label: 'Team Manager' },
+  { to: '/admin-portal/seeder', icon: Database, label: 'Database Seeder' },
 ];
 
 export default function AdminLayout({ children }) {
@@ -38,7 +40,7 @@ export default function AdminLayout({ children }) {
       {/* Logo */}
       <div className="p-6 border-b border-surface-high">
         <div className="flex items-center gap-3">
-          <img src="/8.jpg" alt="Dele Jaipur" className="w-10 h-auto object-contain" />
+          <img src="/dele-logo.png" alt="Dele Jaipur" className="w-10 h-auto object-contain" style={{ border: '1px solid #CC0000' }} />
           <div>
             <p className="font-display font-extrabold text-onSurface">
               Dele<span className="text-primary-container">Jaipur</span>

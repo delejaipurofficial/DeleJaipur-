@@ -43,9 +43,10 @@ export default function Navbar() {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group flex-shrink-0">
             <img
-              src="/8.jpg"
+              src="/dele-logo.png"
               alt="Dele Jaipur Logo"
               className="h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              style={{ border: '1px solid #CC0000' }}
             />
           </Link>
 

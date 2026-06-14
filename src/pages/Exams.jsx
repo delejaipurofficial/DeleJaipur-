@@ -10,12 +10,22 @@ import {
 } from 'lucide-react';
 
 
-const EXAM_FEES = [
-  { level: 'A1–A2', desc: 'No prior certificate required', fee: '₹4,500' },
-  { level: 'B1–B2', desc: 'No prior certificate required', fee: '₹6,000' },
-  { level: 'C1', desc: 'B-level certificate recommended', fee: '₹8,000' },
-  { level: 'C2', desc: 'C1 certificate required', fee: '₹10,000' },
-];
+const DELE_FEES = {
+  generales: [
+    { level: 'A1', base: '₹5,700', centre: '₹800', total: '₹6,500/-' },
+    { level: 'A2', base: '₹6,200', centre: '₹850', total: '₹7,050/-' },
+    { level: 'B1', base: '₹6,800', centre: '₹900', total: '₹7,700/-' },
+    { level: 'B2', base: '₹8,000', centre: '₹1,000', total: '₹9,000/-' },
+    { level: 'C1', base: '₹8,500', centre: '₹1,300', total: '₹9,800/-' },
+    { level: 'C2', base: '₹9,000', centre: '₹1,500', total: '₹10,500/-' },
+  ],
+  escolares: [
+    { level: 'A1', base: '₹5,700', centre: '₹800', total: '₹6,500/-' },
+    { level: 'A2 / B1', base: '₹6,800', centre: '₹900', total: '₹7,700/-' },
+    { level: 'B2 / C1', base: '₹8,500', centre: '₹1,300', total: '₹9,800/-' },
+  ]
+};
+
 
 function ExamCard({ exam }) {
   const today = new Date();
@@ -107,6 +117,7 @@ export default function Exams() {
   const [exams, setExams] = useState([]);
   const [loading, setLoading] = useState(true);
   const [calendarImg, setCalendarImg] = useState(null);
+  const [feeCategory, setFeeCategory] = useState('generales');
 
   useEffect(() => {
     const fetchExamsAndSettings = async () => {
@@ -244,40 +255,78 @@ export default function Exams() {
         {/* About + Fees */}
         <div className="mt-10 sm:mt-16 grid sm:grid-cols-2 gap-5 sm:gap-8">
           {/* About */}
-          <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-card">
-            <div className="flex items-center gap-3 mb-4 sm:mb-5">
-              <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 text-primary-container" />
-              <h3 className="font-display font-bold text-lg sm:text-xl">About DELE Examinations</h3>
+          <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-card flex flex-col justify-between">
+            <div>
+              <div className="flex items-center gap-3 mb-4 sm:mb-5">
+                <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 text-primary-container" />
+                <h3 className="font-display font-bold text-lg sm:text-xl">About DELE Examinations</h3>
+              </div>
+              <p className="text-onSurfaceVariant text-sm leading-relaxed mb-4">
+                DELE (Diplomas de Español como Lengua Extranjera) are official certificates of Spanish language proficiency, awarded by Instituto Cervantes on behalf of the Spanish Ministry of Education. They are internationally recognized and valid for life.
+              </p>
+              <p className="text-onSurfaceVariant text-sm leading-relaxed">
+                Delejaipur is Jaipur's only authorized DELE examination center, meaning students can take the official exam right here — no need to travel to another city.
+              </p>
             </div>
-            <p className="text-onSurfaceVariant text-sm leading-relaxed mb-4">
-              DELE (Diplomas de Español como Lengua Extranjera) are official certificates of Spanish language proficiency, awarded by Instituto Cervantes on behalf of the Spanish Ministry of Education. They are internationally recognized and valid for life.
-            </p>
-            <p className="text-onSurfaceVariant text-sm leading-relaxed">
-              Delejaipur is Jaipur's only authorized DELE examination center, meaning students can take the official exam right here — no need to travel to another city.
-            </p>
             <Link to="/contact" className="inline-flex items-center gap-2 mt-6 text-primary-container font-bold text-sm hover:gap-3 transition-all duration-200">
               Speak with an Advisor <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
 
           {/* Fees */}
-          <div className="bg-white rounded-2xl p-8 shadow-card">
-            <div className="flex items-center gap-3 mb-5">
-              <Award className="w-6 h-6 text-primary-container" />
-              <h3 className="font-display font-bold text-xl">Eligibility & Fees</h3>
-            </div>
-            <div className="space-y-3">
-              {EXAM_FEES.map(({ level, desc, fee }) => (
-                <div key={level} className="flex items-center justify-between p-3 bg-surface-low rounded-xl">
-                  <div className="flex items-center gap-3">
-                    <span className="px-2.5 py-1 bg-primary-light/30 text-primary-dark text-xs font-bold rounded-md">{level}</span>
-                    <span className="text-xs text-onSurfaceVariant">{desc}</span>
+          <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-card flex flex-col justify-between">
+            <div>
+              <div className="flex items-center gap-3 mb-5">
+                <Award className="w-6 h-6 text-primary-container" />
+                <h3 className="font-display font-bold text-xl">Eligibility & Fees</h3>
+              </div>
+
+              {/* Category selector tabs */}
+              <div className="flex p-1 bg-surface-low rounded-xl mb-6 border border-surface-high">
+                <button
+                  onClick={() => setFeeCategory('generales')}
+                  className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all duration-300 ${
+                    feeCategory === 'generales'
+                      ? 'bg-primary-container text-white shadow-soft'
+                      : 'text-secondary hover:text-onSurface hover:bg-surface-container/50'
+                  }`}
+                >
+                  Generales (Adults)
+                </button>
+                <button
+                  onClick={() => setFeeCategory('escolares')}
+                  className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all duration-300 ${
+                    feeCategory === 'escolares'
+                      ? 'bg-primary-container text-white shadow-soft'
+                      : 'text-secondary hover:text-onSurface hover:bg-surface-container/50'
+                  }`}
+                >
+                  Escolares (Minors)
+                </button>
+              </div>
+
+              {/* Fees list */}
+              <div className="space-y-3">
+                {DELE_FEES[feeCategory].map(({ level, base, centre, total }) => (
+                  <div key={level} className="flex items-center justify-between p-3 bg-surface-low rounded-xl border border-surface-container/60 hover:border-primary-light/30 transition-all duration-200">
+                    <div className="flex flex-col gap-0.5">
+                      <div className="flex items-center gap-2">
+                        <span className="px-2.5 py-0.5 bg-primary-light/40 text-primary-dark text-[10px] font-extrabold rounded">
+                          {level}
+                        </span>
+                      </div>
+                      <span className="text-[10px] text-onSurfaceVariant leading-none">
+                        Exam: {base} + Centre: {centre}
+                      </span>
+                    </div>
+                    <span className="font-display font-bold text-sm sm:text-base text-onSurface">
+                      {total}
+                    </span>
                   </div>
-                  <span className="font-display font-bold text-sm text-onSurface">{fee}</span>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-            <p className="text-xs text-onSurfaceVariant mt-4">* Fees are subject to change. Contact us for the latest rates.</p>
+            <p className="text-xs text-onSurfaceVariant mt-5">* Fees are subject to change. Contact us for the latest rates.</p>
           </div>
         </div>
       </div>

@@ -3,10 +3,10 @@ import { MapPin, Mail, ArrowRight } from 'lucide-react';
 
 const footerLinks = {
   Pathways: [
-    { label: 'DELF Preparation', to: '/courses' },
     { label: 'DELE Preparation', to: '/courses' },
     { label: 'IELTS Academy', to: '/courses' },
-    { label: 'World Languages', to: '/courses' },
+    { label: 'DELF Preparation', to: '/courses' },
+    { label: 'Other Languages', to: '/courses' },
     { label: 'DELE Exam Dates', to: '/exams' },
   ],
   Institute: [

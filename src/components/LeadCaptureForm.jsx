@@ -64,7 +64,7 @@ export default function LeadCaptureForm({ courseName = '' }) {
         <p className="text-onSurfaceVariant text-sm">
           We've received your inquiry for <strong className="text-primary-container">{courseName}</strong> and will get back to you within 24 hours.
         </p>
-        <p className="text-xs text-onSurfaceVariant mt-4">📞 +91 98284 59107 &nbsp;|&nbsp; ✉️ delejaipurofficial@gmail.com</p>
+        <p className="text-xs text-onSurfaceVariant mt-4">📞 +91 98284 59107 &nbsp;|&nbsp; ✉️ delejaipur@gmail.com</p>
         <button
           onClick={() => { setSubmitted(false); setForm({ studentName: '', email: '', phone: '', message: '' }); }}
           className="btn-ghost mt-4 text-sm"

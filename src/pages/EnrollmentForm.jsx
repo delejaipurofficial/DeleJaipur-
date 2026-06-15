@@ -137,7 +137,7 @@ export default function EnrollmentForm() {
           <div className="bg-white rounded-2xl p-5 shadow-card text-sm text-onSurfaceVariant mb-8">
             <p>For urgent queries, reach us directly:</p>
             <p className="mt-2 font-semibold text-onSurface">📞 +91 98284 59107</p>
-            <p className="font-semibold text-onSurface">✉️ delejaipurofficial@gmail.com</p>
+            <p className="font-semibold text-onSurface">✉️ delejaipur@gmail.com</p>
           </div>
 
           <div className="flex flex-wrap gap-3 justify-center">
@@ -333,7 +333,7 @@ export default function EnrollmentForm() {
             📞 +91 98284 59107
           </a>
           <a href="mailto:delejaipurofficial@gmail.com" className="block font-semibold text-white hover:text-white/80 transition-colors">
-            ✉️ delejaipurofficial@gmail.com
+            ✉️ delejaipur@gmail.com
           </a>
         </div>
       </div>

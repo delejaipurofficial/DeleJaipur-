@@ -26,7 +26,7 @@ const CONTACT_INFO = [
   {
     Icon: Mail,
     title: 'Email Us',
-    lines: ['delejaipurofficial@gmail.com', 'info@genesisgroups.in'],
+    lines: ['delejaipur@gmail.com', 'info@genesisgroups.in'],
     href: 'mailto:delejaipurofficial@gmail.com',
   },
   {
@@ -182,7 +182,7 @@ export default function Contact() {
                   <Send className="w-10 h-10 text-white" />
                 </div>
                 <h3 className="font-display font-bold text-2xl mb-3">Message Received!</h3>
-                <p className="text-onSurfaceVariant mb-6">Our team will respond within 24 hours. For urgent queries, email us at delejaipurofficial@gmail.com.</p>
+                <p className="text-onSurfaceVariant mb-6">Our team will respond within 24 hours. For urgent queries, email us at delejaipur@gmail.com.</p>
                 <button
                   onClick={() => { setSubmitted(false); setForm({ name: '', email: '', phone: '', subject: '', message: '' }); }}
                   className="inline-flex items-center gap-2 px-6 py-3 bg-primary-container text-white font-bold rounded-xl hover:bg-primary transition-colors"

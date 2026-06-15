@@ -102,7 +102,7 @@ export default function Footer() {
               </div>
               <a href="mailto:delejaipurofficial@gmail.com" className="flex items-center gap-3 group">
                 <Mail className="w-4 h-4 text-primary-container flex-shrink-0" />
-                <span className="text-sm text-white/60 group-hover:text-white transition-colors">delejaipurofficial@gmail.com</span>
+                <span className="text-sm text-white/60 group-hover:text-white transition-colors">delejaipur@gmail.com</span>
               </a>
               <a href="mailto:info@genesisgroups.in" className="flex items-center gap-3 group">
                 <Mail className="w-4 h-4 text-primary-container flex-shrink-0" />

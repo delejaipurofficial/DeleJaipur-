@@ -176,7 +176,7 @@ export default function Exams() {
             {[
               { Icon: Award, text: 'Globally recognized by 100+ countries' },
               { Icon: CheckCircle, text: 'Authorized Instituto Cervantes exam center' },
-              { Icon: Calendar, text: 'Multiple official examination sessions per year — contact us for current dates' },
+              { Icon: Calendar, text: 'All official examination sessions every year' },
               { Icon: Globe, text: "Jaipur's only authorized DELE exam venue" },
             ].map(({ Icon, text }) => (
               <div key={text} className="flex items-center gap-2">

@@ -13,8 +13,8 @@ const footerLinks = {
     { label: 'About Us', to: '/about' },
     { label: 'Our Faculty', to: '/about' },
     { label: 'Contact Us', to: '/contact' },
-    { label: 'Privacy Policy', to: '#' },
-    { label: 'Terms of Service', to: '#' },
+    { label: 'Privacy Policy', to: '/privacy-policy' },
+    { label: 'Terms of Service', to: '/terms-of-service' },
   ],
 };
 
@@ -34,11 +34,8 @@ export default function Footer() {
                 style={{ border: '1px solid #CC0000' }}
               />
             </Link>
-            <p className="text-sm text-white/60 leading-relaxed mb-2">
+            <p className="text-sm text-white/60 leading-relaxed mb-6">
               Nurturing linguistic brilliance since 2009.
-            </p>
-            <p className="text-sm text-white/40 mb-6">
-              जयपुर का प्रमुख विदेशी भाषा संस्थान
             </p>
             {/* Socials */}
             <div className="flex gap-3">
@@ -61,6 +58,13 @@ export default function Footer() {
                 className="w-9 h-9 rounded-lg bg-white/10 hover:bg-primary-container transition-colors duration-200 flex items-center justify-center">
                 <svg className="w-4 h-4 fill-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+              </a>
+              {/* Twitter / X */}
+              <a href="https://x.com/DeleJaipur" target="_blank" rel="noopener noreferrer" aria-label="Twitter / X"
+                className="w-9 h-9 rounded-lg bg-white/10 hover:bg-primary-container transition-colors duration-200 flex items-center justify-center">
+                <svg className="w-4 h-4 fill-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.259 5.631 5.905-5.631zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                 </svg>
               </a>
             </div>

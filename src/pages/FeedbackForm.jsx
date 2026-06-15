@@ -11,7 +11,7 @@ export default function FeedbackForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!form.studentName || !form.quote || !form.track) return;
+    if (!form.studentName || !form.quote) return;
 
     setSubmitting(true);
     try {
@@ -106,10 +106,9 @@ export default function FeedbackForm() {
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-bold text-onSurface mb-1">Course Taken *</label>
+                <label className="block text-sm font-bold text-onSurface mb-1">Course Taken</label>
                 <input
                   type="text"
-                  required
                   value={form.track}
                   onChange={(e) => setForm({ ...form, track: e.target.value })}
                   className="input-field"

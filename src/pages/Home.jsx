@@ -31,7 +31,7 @@ const HERO_SLIDES = [
     tag: 'Global Certifications',
     headline: ['Internationally', 'Recognized Diplomas.'],
     highlight: 1,
-    sub: 'Instituto Cervantes, Alliance Française & IDP-authorized certifications. Your credential, globally trusted.',
+    sub: 'Instituto Cervantes, IDP Australia — Your credential, globally trusted.',
   },
   {
     image: 'https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=1600&auto=format&fit=crop&q=80',
@@ -45,27 +45,27 @@ const HERO_SLIDES = [
 // ─── Static data ─────────────────────────────────────────────────────────────
 const STATIC_TESTIMONIALS = [
   {
-    id: 'nelson-mandela',
-    quote: 'If you talk to a man in a language he understands, that goes to his head. If you talk to him in his language, that goes to his heart.',
-    studentName: 'Nelson Mandela',
-    country: 'South Africa',
-    track: 'Inspirational Quote',
+    id: 'student-1',
+    quote: 'Write what student says here.',
+    studentName: 'Student Name',
+    country: 'City',
+    track: 'Course Name',
     imageURL: null,
   },
   {
-    id: 'charlemagne',
-    quote: 'To have another language is to possess a second soul.',
-    studentName: 'Charlemagne',
-    country: 'Rome',
-    track: 'Inspirational Quote',
+    id: 'student-2',
+    quote: 'Write what student says here.',
+    studentName: 'Student Name',
+    country: 'City',
+    track: 'Course Name',
     imageURL: null,
   },
   {
-    id: 'frank-smith',
-    quote: 'One language sets you in a corridor for life. Two languages open every door along the way.',
-    studentName: 'Frank Smith',
-    country: 'Canada',
-    track: 'Inspirational Quote',
+    id: 'student-3',
+    quote: 'Write what student says here.',
+    studentName: 'Student Name',
+    country: 'City',
+    track: 'Course Name',
     imageURL: null,
   },
 ];
@@ -79,11 +79,11 @@ const FEATURES = [
   {
     icon: Globe,
     title: 'Global Partners',
-    desc: 'Endorsed by Instituto Cervantes, Alliance Française, and IDP Education — your credentials are recognized worldwide.',
+    desc: 'Endorsed by Instituto Cervantes and IDP Australia — your credentials are recognized worldwide.',
   },
 ];
 
-const SKILLED_FACULTY_AVATARS = ['A', 'P', 'M', 'S'];
+const SKILLED_FACULTY_AVATARS = [];
 
 // Static placeholder for courses is removed so live database strictly rules
 
@@ -258,7 +258,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 sm:gap-8 text-sm">
             {[
               { icon: Shield, text: 'Official Spanish Center', sub: 'Accredited by Instituto Cervantes & Embassy of Spain' },
-              { icon: Award, text: 'Authorized IELTS Center', sub: 'Recognized by IDP Education since 2012' },
+              { icon: Award, text: 'Authorized IELTS Center', sub: 'Recognized by IDP Australia since 2012' },
               { icon: Star, text: 'Genesis Group', sub: 'Premium Education Since 2009' },
             ].map(({ icon: Icon, text, sub }) => (
               <div key={text} className="flex items-center gap-3">
@@ -293,7 +293,7 @@ export default function Home() {
               <ul className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
                 {[
                   'Official Spanish Center – Accredited by Instituto Cervantes & Embassy of Spain',
-                  'Authorized IELTS Center – Recognized by IDP Education since 2012',
+                  'Authorized IELTS Center – Recognized by IDP Australia since 2012',
                   '15+ years of world-class language scholarship',
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3">
@@ -524,15 +524,7 @@ export default function Home() {
       </section>
 
       {/* ══════════════ QUOTE BAND ═════════════════════════════════════════════ */}
-      <section className="hero-gradient py-12 sm:py-16">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Quote className="w-8 h-8 sm:w-10 sm:h-10 text-white/30 mx-auto mb-4" />
-          <blockquote className="font-display font-bold text-white text-xl sm:text-2xl md:text-3xl leading-tight mb-4">
-            "One language sets you in a corridor for life. Two languages open every door along the way."
-          </blockquote>
-          <p className="text-white/70 text-xs sm:text-sm uppercase tracking-widest">— Frank Smith</p>
-        </div>
-      </section>
+      <QuoteBandSlider />
 
       <Footer />
     </div>
@@ -595,5 +587,72 @@ function CourseCardLandmark({ course }) {
         </Link>
       </div>
     </div>
+  );
+}
+
+// ─── Quote Band Slider ─────────────────────────────────────────────────────────
+const QUOTES = [
+  {
+    quote: 'If you talk to a man in a language he understands, that goes to his head. If you talk to him in his language, that goes to his heart.',
+    author: 'Nelson Mandela',
+  },
+  {
+    quote: 'To have another language is to possess a second soul.',
+    author: 'Charlemagne',
+  },
+  {
+    quote: 'One language sets you in a corridor for life. Two languages open every door along the way.',
+    author: 'Frank Smith',
+  },
+];
+
+
+function QuoteBandSlider() {
+  const [idx, setIdx] = useState(0);
+  const [fading, setFading] = useState(false);
+
+  const goTo = useCallback((next) => {
+    setFading(true);
+    setTimeout(() => {
+      setIdx(next);
+      setFading(false);
+    }, 350);
+  }, []);
+
+  useEffect(() => {
+    const t = setInterval(() => goTo((idx + 1) % QUOTES.length), 5000);
+    return () => clearInterval(t);
+  }, [idx, goTo]);
+
+  const q = QUOTES[idx];
+
+  return (
+    <section className="hero-gradient py-12 sm:py-16">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <Quote className="w-8 h-8 sm:w-10 sm:h-10 text-white/30 mx-auto mb-4" />
+        <div
+          style={{
+            transition: 'opacity 0.35s ease',
+            opacity: fading ? 0 : 1,
+          }}
+        >
+          <blockquote className="font-display font-bold text-white text-xl sm:text-2xl md:text-3xl leading-tight mb-4">
+            "{q.quote}"
+          </blockquote>
+          <p className="text-white/70 text-xs sm:text-sm uppercase tracking-widest">— {q.author}</p>
+        </div>
+        {/* Dots */}
+        <div className="flex justify-center gap-2 mt-6">
+          {QUOTES.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => goTo(i)}
+              aria-label={`Go to quote ${i + 1}`}
+              className={`rounded-full transition-all duration-300 ${i === idx ? 'w-6 h-2 bg-white' : 'w-2 h-2 bg-white/40 hover:bg-white/70'}`}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

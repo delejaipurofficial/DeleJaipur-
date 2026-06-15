@@ -8,7 +8,8 @@ import ImageUploader from '../../components/ImageUploader';
 import { Plus, Edit2, Trash2, X, Save, Calendar, AlertCircle, CheckCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
 
-const LEVELS_OPTIONS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+const YOUNG_LEVELS_OPTIONS = ['A1', 'A2/B1', 'B2/C1', 'A2 – B1', 'B2 – C1', 'A2', 'B1', 'B2', 'C1'];
+const ADULT_LEVELS_OPTIONS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 const EMPTY_FORM = { date: '', deadline: '', examDate: '', learnerType: 'both', levels: [], year: new Date().getFullYear(), description: '', link: '' };
 const LEARNER_TYPE_OPTIONS = [
   { value: 'adult', label: 'Adult Learner (18+)' },
@@ -32,6 +33,7 @@ export default function ExamTracker() {
   const [editId, setEditId] = useState(null);
   const [form, setForm] = useState(EMPTY_FORM);
   const [saving, setSaving] = useState(false);
+  const [customLevel, setCustomLevel] = useState('');
 
   const [calendarImg, setCalendarImg] = useState('');
 
@@ -73,8 +75,20 @@ export default function ExamTracker() {
   const toggleLevel = (l) => {
     setForm((p) => ({
       ...p,
-      levels: p.levels.includes(l) ? p.levels.filter((x) => x !== l) : [...p.levels, l],
+      levels: p.levels?.includes(l) ? p.levels.filter((x) => x !== l) : [...(p.levels || []), l],
     }));
+  };
+
+  const addCustomLevel = () => {
+    const val = customLevel.trim();
+    if (!val) return;
+    if (!form.levels?.includes(val)) {
+      setForm((p) => ({
+        ...p,
+        levels: [...(p.levels || []), val],
+      }));
+    }
+    setCustomLevel('');
   };
 
   const handleSave = async () => {
@@ -255,22 +269,70 @@ export default function ExamTracker() {
                 </div>
               </div>
               <div>
-                <label className="label-sm text-xs text-onSurfaceVariant mb-3 block">Available Levels</label>
-                <div className="flex flex-wrap gap-2">
-                  {LEVELS_OPTIONS.map((l) => (
-                    <button
-                      key={l}
-                      type="button"
-                      onClick={() => toggleLevel(l)}
-                      className={`px-3 py-1.5 rounded-lg text-sm font-bold transition-all border ${
-                        form.levels?.includes(l)
-                          ? 'bg-primary-container text-white border-primary-container'
-                          : 'border-surface-high text-onSurfaceVariant hover:border-primary-container'
-                      }`}
-                    >
-                      {l}
-                    </button>
-                  ))}
+                <label className="label-sm text-xs text-onSurfaceVariant mb-2 block">Selected Levels</label>
+                {form.levels && form.levels.length > 0 ? (
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {form.levels.map((l) => (
+                      <span key={l} className="flex items-center gap-1.5 px-3 py-1 bg-primary-container text-white text-xs font-bold rounded-lg shadow-sm">
+                        {l}
+                        <button
+                          type="button"
+                          onClick={() => toggleLevel(l)}
+                          className="w-4 h-4 rounded-full bg-white/25 hover:bg-white/40 flex items-center justify-center text-[10px] font-extrabold transition-colors"
+                          title="Remove level"
+                        >
+                          &times;
+                        </button>
+                      </span>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-xs text-onSurfaceVariant italic mb-4">No levels selected yet. Select from presets below or add a custom level.</p>
+                )}
+
+                <label className="label-sm text-xs text-onSurfaceVariant mb-2 block">Preset Level Options</label>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {(form.learnerType === 'young' ? YOUNG_LEVELS_OPTIONS : ADULT_LEVELS_OPTIONS).map((l) => {
+                    const isSelected = form.levels?.includes(l);
+                    return (
+                      <button
+                        key={l}
+                        type="button"
+                        onClick={() => toggleLevel(l)}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all border ${
+                          isSelected
+                            ? 'bg-primary-container text-white border-primary-container'
+                            : 'border-surface-high text-onSurfaceVariant hover:border-primary-container bg-white'
+                        }`}
+                      >
+                        {l}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <label className="label-sm text-xs text-onSurfaceVariant mb-1.5 block">Add Custom Level (with separators or single)</label>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={customLevel}
+                    onChange={(e) => setCustomLevel(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault();
+                        addCustomLevel();
+                      }
+                    }}
+                    placeholder="e.g. A2 – B1 or B2/C1"
+                    className="input-field py-2 text-xs"
+                  />
+                  <button
+                    type="button"
+                    onClick={addCustomLevel}
+                    className="px-4 py-2 bg-surface-low hover:bg-primary-light hover:text-primary-dark font-bold text-xs rounded-xl border border-surface-high transition-colors"
+                  >
+                    Add
+                  </button>
                 </div>
               </div>
               <div>

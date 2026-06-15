@@ -6,7 +6,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import {
   Calendar, Clock, Award, AlertCircle, CheckCircle, ArrowRight,
-  BookOpen, Globe, Star
+  BookOpen, Globe, Star, ChevronDown, ChevronUp
 } from 'lucide-react';
 
 
@@ -87,7 +87,11 @@ function ExamCard({ exam }) {
         <p className="text-[10px] font-semibold uppercase tracking-widest text-onSurfaceVariant mb-3">Available Levels</p>
         <div className="flex flex-wrap gap-2">
           {exam.levels?.map((level) => (
-            <span key={level} className="px-3 py-1 bg-primary-light/30 text-primary-dark text-xs font-bold rounded-full">
+            <span key={level} className={`px-3 py-1 text-xs font-bold rounded-full border ${
+              exam.learnerType === 'young'
+                ? 'bg-blue-50 text-blue-700 border-blue-100'
+                : 'bg-primary-light/30 text-primary-dark border-transparent'
+            }`}>
               {level}
             </span>
           ))}
@@ -113,11 +117,92 @@ function ExamCard({ exam }) {
   );
 }
 
+// Helper to extract month and year from exam
+const getExamMonthYear = (exam) => {
+  if (exam.examDate) {
+    const d = new Date(exam.examDate);
+    if (!isNaN(d.getTime())) {
+      const month = d.toLocaleDateString('en-US', { month: 'long' });
+      const year = d.getFullYear();
+      return { month, year };
+    }
+  }
+  if (exam.date) {
+    const parts = exam.date.trim().split(/\s+/);
+    if (parts.length >= 2) {
+      const monthPart = parts[0];
+      const yearPart = parts[parts.length - 1];
+      if (/^\d{4}$/.test(yearPart)) {
+        return { month: monthPart, year: parseInt(yearPart, 10) };
+      }
+    }
+  }
+  if (exam.deadline) {
+    const d = new Date(exam.deadline);
+    if (!isNaN(d.getTime())) {
+      const month = d.toLocaleDateString('en-US', { month: 'long' });
+      const year = d.getFullYear();
+      return { month, year };
+    }
+  }
+  return { month: 'Other', year: '' };
+};
+
+// Group exams by month and year
+const groupExams = (list) => {
+  const groups = [];
+  list.forEach((exam) => {
+    const { month, year } = getExamMonthYear(exam);
+    const groupName = year ? `${month} ${year}` : month;
+    let group = groups.find((g) => g.name === groupName);
+    if (!group) {
+      group = { name: groupName, exams: [] };
+      groups.push(group);
+    }
+    group.exams.push(exam);
+  });
+  return groups;
+};
+
 export default function Exams() {
   const [exams, setExams] = useState([]);
   const [loading, setLoading] = useState(true);
   const [calendarImg, setCalendarImg] = useState(null);
   const [feeCategory, setFeeCategory] = useState('generales');
+  const [expandedMonths, setExpandedMonths] = useState({});
+
+  const groupedExams = groupExams(exams);
+
+  // Initialize expanded months when exams load
+  useEffect(() => {
+    if (exams.length > 0) {
+      const initialExpanded = {};
+      const grouped = groupExams(exams);
+      if (grouped.length > 0) {
+        // Expand the first group by default
+        initialExpanded[grouped[0].name] = true;
+        // Expand any group that has at least one active/open exam
+        grouped.forEach((g) => {
+          const hasOpen = g.exams.some((exam) => {
+            const today = new Date();
+            const deadline = new Date(exam.deadline);
+            return today < deadline;
+          });
+          if (hasOpen) {
+            initialExpanded[g.name] = true;
+          }
+        });
+      }
+      setExpandedMonths(initialExpanded);
+    }
+  }, [exams]);
+
+  const toggleMonth = (name) => {
+    setExpandedMonths((prev) => ({
+      ...prev,
+      [name]: !prev[name],
+    }));
+  };
 
   useEffect(() => {
     const fetchExamsAndSettings = async () => {
@@ -237,8 +322,15 @@ export default function Exams() {
         </div>
 
         {loading ? (
-          <div className="grid md:grid-cols-3 gap-8">
-            {[...Array(3)].map((_, i) => <div key={i} className="rounded-2xl h-72 animate-pulse bg-surface-high" />)}
+          <div className="space-y-6">
+            {[...Array(2)].map((_, i) => (
+              <div key={i} className="bg-white rounded-2xl border border-surface-high p-6 space-y-4 shadow-sm">
+                <div className="h-8 w-1/3 bg-surface-high rounded animate-pulse" />
+                <div className="grid md:grid-cols-3 gap-6">
+                  {[...Array(3)].map((_, j) => <div key={j} className="h-64 bg-surface-low rounded-xl animate-pulse" />)}
+                </div>
+              </div>
+            ))}
           </div>
         ) : exams.length === 0 ? (
           <div className="text-center py-24 bg-white rounded-2xl shadow-card">
@@ -247,8 +339,55 @@ export default function Exams() {
             <p className="text-onSurfaceVariant text-sm">Exam sessions will appear here once published.</p>
           </div>
         ) : (
-          <div className="grid md:grid-cols-3 gap-8">
-            {exams.map((exam) => <ExamCard key={exam.id} exam={exam} />)}
+          <div className="space-y-6">
+            {groupedExams.map((group) => {
+              const isExpanded = !!expandedMonths[group.name];
+              const openCount = group.exams.filter((exam) => new Date() < new Date(exam.deadline)).length;
+
+              return (
+                <div key={group.name} className="bg-white rounded-2xl border border-surface-high shadow-card overflow-hidden transition-all duration-300">
+                  {/* Accordion Header */}
+                  <button
+                    onClick={() => toggleMonth(group.name)}
+                    className="w-full px-6 py-5 flex items-center justify-between hover:bg-surface-low/30 transition-colors text-left"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="w-10 h-10 rounded-xl bg-primary-light/20 flex items-center justify-center text-primary-container">
+                        <Calendar className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h3 className="font-display font-bold text-lg sm:text-xl text-onSurface">{group.name}</h3>
+                        <p className="text-xs text-onSurfaceVariant">
+                          {group.exams.length} {group.exams.length === 1 ? 'session' : 'sessions'}
+                          {openCount > 0 && ` • ${openCount} open for registration`}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      {openCount > 0 && (
+                        <span className="hidden sm:inline-block px-2.5 py-1 bg-green-50 text-green-700 text-xs font-bold rounded-full border border-green-200">
+                          Active
+                        </span>
+                      )}
+                      <div className="w-8 h-8 rounded-lg bg-surface-low flex items-center justify-center text-onSurfaceVariant hover:bg-surface-high transition-colors">
+                        {isExpanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+                      </div>
+                    </div>
+                  </button>
+
+                  {/* Accordion Content */}
+                  {isExpanded && (
+                    <div className="p-6 border-t border-surface-high bg-surface-low/10">
+                      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {group.exams.map((exam) => (
+                          <ExamCard key={exam.id} exam={exam} />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         )}
 

@@ -413,8 +413,8 @@ export default function Exams() {
           </div>
         )}
 
-        {/* About + Fees + Schedule */}
-        <div className="mt-10 sm:mt-16 grid md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
+        {/* About + Fees */}
+        <div className="mt-10 sm:mt-16 grid sm:grid-cols-2 gap-5 sm:gap-8">
           {/* About */}
           <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-card flex flex-col justify-between">
             <div>
@@ -486,27 +486,6 @@ export default function Exams() {
                   </div>
                 ))}
               </div>
-            </div>
-          </div>
-
-          {/* Schedule of the exams */}
-          <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-card flex flex-col justify-between">
-            <div>
-              <div className="flex items-center gap-3 mb-5">
-                <Clock className="w-6 h-6 text-primary-container" />
-                <h3 className="font-display font-bold text-xl">Schedule of the Exams (Oral & Written)</h3>
-              </div>
-              <div className="space-y-4">
-                <p className="text-onSurfaceVariant text-sm leading-relaxed">
-                  Written exams begin at <strong>9:00 a.m.</strong>, but the presence of the candidate is required at the exam center at <strong>08:30 h.</strong> to verify your documentation and to receive precise instructions.
-                </p>
-                <p className="text-onSurfaceVariant text-sm leading-relaxed">
-                  The oral exams vary according to the number of candidates from the center and can be held in the days before and after the written exams. The information will reach the candidates approximately ............................
-                </p>
-              </div>
-            </div>
-            <div className="pt-6 border-t border-surface-high mt-6">
-              <p className="text-xs text-onSurfaceVariant">* Timings are subject to official Instituto Cervantes regulation.</p>
             </div>
           </div>
         </div>

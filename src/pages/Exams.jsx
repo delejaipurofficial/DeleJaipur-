@@ -209,8 +209,16 @@ export default function Exams() {
       if (!db) { setLoading(false); return; }
       try {
         // Fetch exams
-        const snap = await getDocs(query(collection(db, 'exams'), orderBy('deadline')));
+        const snap = await getDocs(collection(db, 'exams'));
         const data = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+        
+        // Sort by examDate ascending (fallback to deadline)
+        data.sort((a, b) => {
+          const dateA = a.examDate ? new Date(a.examDate).getTime() : (a.deadline ? new Date(a.deadline).getTime() : 0);
+          const dateB = b.examDate ? new Date(b.examDate).getTime() : (b.deadline ? new Date(b.deadline).getTime() : 0);
+          return dateA - dateB;
+        });
+        
         setExams(data);
 
         // Fetch settings

@@ -480,7 +480,7 @@ export default function Exams() {
                         </span>
                       </div>
                       <span className="text-[10px] text-onSurfaceVariant leading-none">
-                        Exam: {base} + Centre: {centre}
+                        Exam Fees: {base} + Center Charges: {centre}
                       </span>
                     </div>
                     <span className="font-display font-bold text-sm sm:text-base text-onSurface">

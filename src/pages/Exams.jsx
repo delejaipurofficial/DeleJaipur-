@@ -319,13 +319,13 @@ export default function Exams() {
                 <div className="flex gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-primary-container flex-shrink-0 mt-2" />
                   <p className="leading-relaxed">
-                    <strong className="text-onSurface font-bold">Written Exams:</strong> Written exam dates are set globally by the Instituto Cervantes and cannot be changed under any circumstances.
+                    <strong className="text-onSurface font-bold">Written Exams:</strong> Written exam dates are set globally by the Instituto Cervantes and cannot be changed under any circumstances. Written exams begin at 9:00 a.m., but the presence of the candidate is required at the exam center at 08:30 h. to verify your documentation and to receive precise instructions.
                   </p>
                 </div>
                 <div className="flex gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-primary-container flex-shrink-0 mt-2" />
                   <p className="leading-relaxed">
-                    <strong className="text-onSurface font-bold">Oral Exams:</strong> Your speaking test may be scheduled up to 2 days before or 2 days after the official written exam date.
+                    <strong className="text-onSurface font-bold">Oral Exams:</strong> Your speaking test may be scheduled up to 2 days before or 2 days after the official written exam date. The oral exams vary according to the number of candidates from the center and can be held in the days before and after the written exams.
                   </p>
                 </div>
                 <div className="flex gap-2.5 p-4 bg-primary-light/20 border-l-4 border-primary-container rounded-r-xl mt-2">

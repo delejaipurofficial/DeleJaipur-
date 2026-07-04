@@ -12,7 +12,7 @@ const YOUNG_LEVELS_OPTIONS = ['A1', 'A2/B1', 'B2/C1', 'A2 – B1', 'B2 – C1', 
 const ADULT_LEVELS_OPTIONS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 const EMPTY_FORM = { date: '', deadline: '', examDate: '', learnerType: 'both', levels: [], year: new Date().getFullYear(), description: '', link: '' };
 const LEARNER_TYPE_OPTIONS = [
-  { value: 'adult', label: 'Adult Learner (18+)' },
+  { value: 'adult', label: 'General (18+)' },
   { value: 'young', label: 'Young Learner (11–17)' },
   { value: 'both', label: 'Both' },
 ];
@@ -183,7 +183,7 @@ export default function ExamTracker() {
                           <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-bold rounded-lg">Young Learner</span>
                         )}
                         {exam.learnerType === 'adult' && (
-                          <span className="px-2 py-1 bg-amber-100 text-amber-700 text-xs font-bold rounded-lg">Adult Learner</span>
+                          <span className="px-2 py-1 bg-amber-100 text-amber-700 text-xs font-bold rounded-lg">General</span>
                         )}
                         {(!exam.learnerType || exam.learnerType === 'both') && (
                           <span className="px-2 py-1 bg-surface-high text-onSurfaceVariant text-xs font-bold rounded-lg">Both</span>

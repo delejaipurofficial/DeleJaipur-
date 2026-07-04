@@ -310,9 +310,9 @@ export default function AboutUs() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <SectionLabel label="The Faculty" />
-            <h2 className="display-md">Meet Our Team</h2>
+            <h2 className="display-md">Our Team</h2>
             <p className="text-onSurfaceVariant mt-4 max-w-2xl mx-auto">
-              Our team comprises highly experienced professionals and international trainers, dedicated to delivering lessons in a comfortable, engaging, and effective way. Each trainer brings expertise, passion, and authentic cultural insight.
+              We are well equipped with highly experienced Professionals and especially with Foreign Trainers. Each Trainer is having a speciality to teach students with a high-comfort and makes them feel like; they are learning by the native in the same foreign country. And make them understand every course in such a great easier way to learn their actual accents, pronunciations with the depth, benefits of the courses, their culture and more about the country they love to learn their languages.
             </p>
           </div>
           <div

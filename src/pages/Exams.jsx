@@ -51,7 +51,7 @@ function ExamCard({ exam }) {
           </span>
           {exam.learnerType && exam.learnerType !== 'both' && (
             <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide ${exam.learnerType === 'young' ? 'bg-blue-50 text-blue-700 border border-blue-200' : 'bg-amber-50 text-amber-700 border border-amber-200'}`}>
-              {exam.learnerType === 'young' ? 'Young Learner' : 'Adult Learner'}
+              {exam.learnerType === 'young' ? 'Young Learner' : 'General'}
             </span>
           )}
         </div>
@@ -306,12 +306,34 @@ export default function Exams() {
               <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white/40 to-transparent pointer-events-none" />
             </div>
 
-            {/* Footer note */}
-            <div className="px-6 py-3 bg-surface-low border-t border-surface-high flex items-center gap-2">
-              <Award className="w-3.5 h-3.5 text-primary-container flex-shrink-0" />
-              <p className="text-xs text-onSurfaceVariant">
-                Dates are subject to change. Contact us to confirm your session before registering.
-              </p>
+            {/* Footer note: Important Exam Policy */}
+            <div className="p-6 sm:p-8 bg-surface-low border-t border-surface-high">
+              <div className="flex items-start gap-3 mb-4">
+                <Award className="w-5 h-5 text-primary-container flex-shrink-0 mt-0.5" />
+                <div>
+                  <h4 className="font-display font-extrabold text-sm sm:text-base text-onSurface">Important Exam Policy:</h4>
+                  <p className="text-xs text-onSurfaceVariant mt-0.5">Please review the official regulations regarding written and oral exams below.</p>
+                </div>
+              </div>
+              <div className="grid gap-4 text-xs sm:text-sm text-onSurfaceVariant ml-0 sm:ml-8">
+                <div className="flex gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary-container flex-shrink-0 mt-2" />
+                  <p className="leading-relaxed">
+                    <strong className="text-onSurface font-bold">Written Exams:</strong> Written exam dates are set globally by the Instituto Cervantes and cannot be changed under any circumstances.
+                  </p>
+                </div>
+                <div className="flex gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary-container flex-shrink-0 mt-2" />
+                  <p className="leading-relaxed">
+                    <strong className="text-onSurface font-bold">Oral Exams:</strong> Your speaking test may be scheduled up to 2 days before or 2 days after the official written exam date.
+                  </p>
+                </div>
+                <div className="flex gap-2.5 p-4 bg-primary-light/20 border-l-4 border-primary-container rounded-r-xl mt-2">
+                  <p className="leading-relaxed text-onSurface">
+                    <strong className="text-primary-dark font-extrabold">Mandatory Action:</strong> Your exact oral schedule will be sent via email. If you have not received your timetable details 15 days prior to the exam, please contact our center administration immediately.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         )}
@@ -391,8 +413,8 @@ export default function Exams() {
           </div>
         )}
 
-        {/* About + Fees */}
-        <div className="mt-10 sm:mt-16 grid sm:grid-cols-2 gap-5 sm:gap-8">
+        {/* About + Fees + Schedule */}
+        <div className="mt-10 sm:mt-16 grid md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
           {/* About */}
           <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-card flex flex-col justify-between">
             <div>
@@ -466,6 +488,27 @@ export default function Exams() {
               </div>
             </div>
             <p className="text-xs text-onSurfaceVariant mt-5">* Fees are subject to change. Contact us for the latest rates.</p>
+          </div>
+
+          {/* Schedule of the exams */}
+          <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-card flex flex-col justify-between">
+            <div>
+              <div className="flex items-center gap-3 mb-5">
+                <Clock className="w-6 h-6 text-primary-container" />
+                <h3 className="font-display font-bold text-xl">Schedule of the Exams (Oral & Written)</h3>
+              </div>
+              <div className="space-y-4">
+                <p className="text-onSurfaceVariant text-sm leading-relaxed">
+                  Written exams begin at <strong>9:00 a.m.</strong>, but the presence of the candidate is required at the exam center at <strong>08:30 h.</strong> to verify your documentation and to receive precise instructions.
+                </p>
+                <p className="text-onSurfaceVariant text-sm leading-relaxed">
+                  The oral exams vary according to the number of candidates from the center and can be held in the days before and after the written exams. The information will reach the candidates approximately ............................
+                </p>
+              </div>
+            </div>
+            <div className="pt-6 border-t border-surface-high mt-6">
+              <p className="text-xs text-onSurfaceVariant">* Timings are subject to official Instituto Cervantes regulation.</p>
+            </div>
           </div>
         </div>
       </div>

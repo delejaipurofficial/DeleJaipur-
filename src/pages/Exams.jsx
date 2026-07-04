@@ -429,7 +429,7 @@ export default function Exams() {
                 DELE (Diplomas de Español como Lengua Extranjera) are official certificates of Spanish language proficiency, awarded by Instituto Cervantes on behalf of the Spanish Ministry of Education. They are internationally recognized and valid for life.
               </p>
               <p className="text-onSurfaceVariant text-sm leading-relaxed">
-                Delejaipur is Jaipur's only authorized DELE examination center, meaning students can take the official exam right here — no need to travel to another city.
+                DELE Jaipur is Rajasthan’s only official DELE exam center—take the world‑recognized Spanish exam right here in Jaipur, no need to travel out of state!
               </p>
             </div>
             <Link to="/contact" className="inline-flex items-center gap-2 mt-6 text-primary-container font-bold text-sm hover:gap-3 transition-all duration-200">

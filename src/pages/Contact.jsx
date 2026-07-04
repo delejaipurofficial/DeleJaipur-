@@ -15,7 +15,7 @@ const CONTACT_INFO = [
     Icon: MapPin,
     title: 'Main Campus',
     lines: ['84/260, Roondla Plaza, Madhyam Marg,', 'Mansarover Plaza, Near K.V.-5,', 'Jaipur (Raj.) – 302020'],
-    note: 'Open Mon–Sat, 9 AM – 7 PM',
+    note: 'Open Mon–Fri: 10 AM – 5 PM, Sat: 10 AM – 2 PM',
   },
   {
     Icon: Phone,
@@ -161,8 +161,8 @@ export default function Contact() {
               </div>
               <div className="space-y-2 text-sm">
                 {[
-                  ['Monday – Friday', '9:00 AM – 7:00 PM'],
-                  ['Saturday', '9:00 AM – 5:00 PM'],
+                  ['Monday – Friday', '10:00 AM – 5:00 PM'],
+                  ['Saturday', '10:00 AM – 2:00 PM'],
                   ['Sunday', 'By Appointment'],
                 ].map(([day, time]) => (
                   <div key={day} className="flex justify-between">

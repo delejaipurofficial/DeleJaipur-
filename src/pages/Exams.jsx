@@ -487,7 +487,6 @@ export default function Exams() {
                 ))}
               </div>
             </div>
-            <p className="text-xs text-onSurfaceVariant mt-5">* Fees are subject to change. Contact us for the latest rates.</p>
           </div>
 
           {/* Schedule of the exams */}

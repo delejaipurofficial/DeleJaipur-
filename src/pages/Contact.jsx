@@ -5,47 +5,62 @@ import { sendLeadEmail } from '../email';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import {
-  MapPin, Phone, Mail, Clock, Send,
-  User, MessageSquare, Globe, ArrowUpRight
-} from 'lucide-react';
+  FaMapPin, FaPhone, FaEnvelope, FaLinkedin,
+  FaInstagram, FaYoutube, FaFacebook, FaXTwitter,
+  FaRegClock, FaPaperPlane, FaUser, FaRegComment
+} from 'react-icons/fa6';
+import { FiArrowUpRight } from 'react-icons/fi';
+
 import toast from 'react-hot-toast';
 
 const CONTACT_INFO = [
   {
-    Icon: MapPin,
+    Icon: FaMapPin,
     title: 'Main Campus',
     lines: ['84/260, Roondla Plaza, Madhyam Marg,', 'Mansarover Plaza, Near K.V.-5,', 'Jaipur (Raj.) – 302020'],
     note: 'Open Mon–Fri: 10 AM – 5 PM, Sat: 10 AM – 2 PM',
   },
   {
-    Icon: Phone,
+    Icon: FaPhone,
     title: 'Call Us',
     lines: ['+91 98284 59107'],
     href: 'tel:+919828459107',
   },
   {
-    Icon: Mail,
+    Icon: FaEnvelope,
     title: 'Email Us',
     lines: ['delejaipur@gmail.com', 'info@genesisgroups.in'],
     href: 'mailto:delejaipurofficial@gmail.com',
   },
   {
-    Icon: Globe,
+    Icon: FaLinkedin,
     title: 'LinkedIn',
     lines: ['DELE Jaipur Centre'],
     href: 'https://www.linkedin.com/company/dele-jaipur-centre/posts/?feedView=all',
   },
   {
-    Icon: Globe,
+    Icon: FaInstagram,
     title: 'Instagram',
     lines: ['@delejaipur'],
     href: 'https://www.instagram.com/delejaipur?igsh=MTkxejVnazdjcXdteg==',
   },
   {
-    Icon: Globe,
+    Icon: FaYoutube,
     title: 'YouTube',
     lines: ['@delejaipurcentre'],
     href: 'https://youtube.com/@delejaipurcentre?si=gWWVGzC9vk5LBjpG',
+  },
+  {
+    Icon: FaFacebook,
+    title: 'Facebook',
+    lines: ['DELE Jaipur'],
+    href: 'https://www.facebook.com/share/1CGGVGzGi1/',
+  },
+  {
+    Icon: FaXTwitter,
+    title: 'X',
+    lines: ['@DeleJaipur'],
+    href: 'https://x.com/DeleJaipur',
   },
 ];
 
@@ -117,7 +132,7 @@ export default function Contact() {
       {/* ── Contact Cards strip ── */}
       <div className="bg-white border-b border-surface-high shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 sm:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4 sm:gap-6">
             {CONTACT_INFO.map(({ Icon, title, lines, href, note }) => (
               <div key={title} className="flex flex-col gap-1">
                 <div className="w-10 h-10 bg-primary-container/10 rounded-lg flex items-center justify-center mb-2">
@@ -127,7 +142,7 @@ export default function Contact() {
                 {lines.map((l) =>
                   href ? (
                     <a key={l} href={href} target="_blank" rel="noopener noreferrer" className="text-xs text-onSurfaceVariant hover:text-primary-container transition-colors flex items-center gap-1">
-                      {l} <ArrowUpRight className="w-3 h-3" />
+                      {l} <FiArrowUpRight className="w-3 h-3" />
                     </a>
                   ) : (
                     <p key={l} className="text-xs text-onSurfaceVariant">{l}</p>
@@ -156,7 +171,7 @@ export default function Contact() {
             </div>
             <div className="bg-surface-lowest rounded-2xl p-6 shadow-card">
               <div className="flex items-center gap-3 mb-4">
-                <Clock className="w-5 h-5 text-primary-container" />
+                <FaRegClock className="w-5 h-5 text-primary-container" />
                 <h3 className="font-display font-bold text-onSurface">Office Hours</h3>
               </div>
               <div className="space-y-2 text-sm">
@@ -179,7 +194,7 @@ export default function Contact() {
             {submitted ? (
               <div className="bg-surface-lowest rounded-2xl p-12 text-center shadow-card">
                 <div className="w-20 h-20 hero-gradient rounded-3xl flex items-center justify-center mx-auto mb-6">
-                  <Send className="w-10 h-10 text-white" />
+                  <FaPaperPlane className="w-10 h-10 text-white" />
                 </div>
                 <h3 className="font-display font-bold text-2xl mb-3">Message Received!</h3>
                 <p className="text-onSurfaceVariant mb-6">Our team will respond within 24 hours. For urgent queries, email us at delejaipur@gmail.com.</p>
@@ -197,21 +212,21 @@ export default function Contact() {
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div className="grid sm:grid-cols-2 gap-5">
                     <div className="relative">
-                      <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-onSurfaceVariant" />
+                      <FaUser className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-onSurfaceVariant" />
                       <input type="text" name="name" value={form.name} onChange={handleChange} placeholder="Full Name *" className="w-full pl-10 pr-4 py-3 bg-surface-low rounded-xl text-onSurface placeholder-onSurfaceVariant border border-surface-high focus:outline-none focus:border-primary-container text-sm transition-colors" required />
                     </div>
                     <div className="relative">
-                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-onSurfaceVariant" />
+                      <FaPhone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-onSurfaceVariant" />
                       <input type="tel" name="phone" value={form.phone} onChange={handleChange} placeholder="Phone Number" className="w-full pl-10 pr-4 py-3 bg-surface-low rounded-xl text-onSurface placeholder-onSurfaceVariant border border-surface-high focus:outline-none focus:border-primary-container text-sm transition-colors" />
                     </div>
                   </div>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-onSurfaceVariant" />
+                    <FaEnvelope className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-onSurfaceVariant" />
                     <input type="email" name="email" value={form.email} onChange={handleChange} placeholder="Email Address *" className="w-full pl-10 pr-4 py-3 bg-surface-low rounded-xl text-onSurface placeholder-onSurfaceVariant border border-surface-high focus:outline-none focus:border-primary-container text-sm transition-colors" required />
                   </div>
                   <input type="text" name="subject" value={form.subject} onChange={handleChange} placeholder="Subject" className="w-full px-4 py-3 bg-surface-low rounded-xl text-onSurface placeholder-onSurfaceVariant border border-surface-high focus:outline-none focus:border-primary-container text-sm transition-colors" />
                   <div className="relative">
-                    <MessageSquare className="absolute left-3 top-4 w-4 h-4 text-onSurfaceVariant" />
+                    <FaRegComment className="absolute left-3 top-4 w-4 h-4 text-onSurfaceVariant" />
                     <textarea name="message" value={form.message} onChange={handleChange} placeholder="Your message…" rows={5} className="w-full pl-10 pr-4 py-3 bg-surface-low rounded-xl text-onSurface placeholder-onSurfaceVariant border border-surface-high focus:outline-none focus:border-primary-container text-sm transition-colors resize-none" required />
                   </div>
                   <button
@@ -223,7 +238,7 @@ export default function Contact() {
                     {submitting ? (
                       <span className="flex items-center gap-2"><span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" /> Sending…</span>
                     ) : (
-                      <><Send className="w-4 h-4" /> Send Message</>
+                      <><FaPaperPlane className="w-4 h-4" /> Send Message</>
                     )}
                   </button>
                 </form>

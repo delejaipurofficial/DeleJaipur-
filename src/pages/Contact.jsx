@@ -13,7 +13,7 @@ import { FiArrowUpRight } from 'react-icons/fi';
 
 import toast from 'react-hot-toast';
 
-const CONTACT_INFO = [
+const CORE_CONTACTS = [
   {
     Icon: FaMapPin,
     title: 'Main Campus',
@@ -32,6 +32,9 @@ const CONTACT_INFO = [
     lines: ['delejaipur@gmail.com', 'info@genesisgroups.in'],
     href: 'mailto:delejaipurofficial@gmail.com',
   },
+];
+
+const SOCIAL_CONTACTS = [
   {
     Icon: FaLinkedin,
     title: 'LinkedIn',
@@ -131,27 +134,54 @@ export default function Contact() {
 
       {/* ── Contact Cards strip ── */}
       <div className="bg-white border-b border-surface-high shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4 sm:gap-6">
-            {CONTACT_INFO.map(({ Icon, title, lines, href, note }) => (
-              <div key={title} className="flex flex-col gap-1">
-                <div className="w-10 h-10 bg-primary-container/10 rounded-lg flex items-center justify-center mb-2">
-                  <Icon className="w-5 h-5 text-primary-container" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+          
+          {/* Core Contacts */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            {CORE_CONTACTS.map(({ Icon, title, lines, href, note }) => (
+              <div key={title} className="flex gap-4 p-5 rounded-2xl border border-surface-high bg-surface-lowest shadow-sm hover:shadow-md transition-all duration-200">
+                <div className="w-12 h-12 bg-primary-container/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <Icon className="w-6 h-6 text-primary-container" />
                 </div>
-                <p className="font-display font-bold text-onSurface text-sm">{title}</p>
-                {lines.map((l) =>
-                  href ? (
-                    <a key={l} href={href} target="_blank" rel="noopener noreferrer" className="text-xs text-onSurfaceVariant hover:text-primary-container transition-colors flex items-center gap-1">
-                      {l} <FiArrowUpRight className="w-3 h-3" />
-                    </a>
-                  ) : (
-                    <p key={l} className="text-xs text-onSurfaceVariant">{l}</p>
-                  )
-                )}
-                {note && <p className="text-[10px] text-onSurfaceVariant/70 mt-0.5">{note}</p>}
+                <div>
+                  <h3 className="font-display font-bold text-onSurface text-base mb-1.5">{title}</h3>
+                  {lines.map((l) =>
+                    href ? (
+                      <a key={l} href={href} target="_blank" rel="noopener noreferrer" className="text-sm text-onSurfaceVariant hover:text-primary-container transition-colors flex items-center gap-1">
+                        {l} <FiArrowUpRight className="w-3.5 h-3.5" />
+                      </a>
+                    ) : (
+                      <p key={l} className="text-sm text-onSurfaceVariant leading-relaxed">{l}</p>
+                    )
+                  )}
+                  {note && <p className="text-xs text-onSurfaceVariant/70 mt-2 leading-relaxed">{note}</p>}
+                </div>
               </div>
             ))}
           </div>
+
+          {/* Social Contacts */}
+          <div className="border-t border-surface-high/60 pt-8">
+            <h3 className="text-center font-display font-bold text-lg text-onSurface mb-6">Connect with us on Social Media</h3>
+            <div className="flex flex-wrap gap-6 justify-center max-w-5xl mx-auto">
+              {SOCIAL_CONTACTS.map(({ Icon, title, lines, href }) => (
+                <div key={title} className="flex items-center gap-4 p-4 rounded-xl border border-surface-high bg-surface-lowest shadow-sm hover:shadow-md transition-all duration-200 w-full sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] min-w-[240px]">
+                  <div className="w-11 h-11 bg-primary-container/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <Icon className="w-5.5 h-5.5 text-primary-container" />
+                  </div>
+                  <div>
+                    <h4 className="font-display font-bold text-onSurface text-sm mb-1">{title}</h4>
+                    {lines.map((l) => (
+                      <a key={l} href={href} target="_blank" rel="noopener noreferrer" className="text-xs text-onSurfaceVariant hover:text-primary-container transition-colors flex items-center gap-1">
+                        {l} <FiArrowUpRight className="w-3 h-3" />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
         </div>
       </div>
 

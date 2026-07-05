@@ -134,53 +134,45 @@ export default function Contact() {
 
       {/* ── Contact Cards strip ── */}
       <div className="bg-white border-b border-surface-high shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           
           {/* Core Contacts */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <div className="flex flex-wrap gap-8 justify-center max-w-4xl mx-auto mb-8">
             {CORE_CONTACTS.map(({ Icon, title, lines, href, note }) => (
-              <div key={title} className="flex flex-col items-center text-center p-6 sm:p-8 rounded-2xl border border-surface-high/80 bg-surface-lowest hover:border-primary-container/30 hover:shadow-lg transition-all duration-300 h-full">
-                <div className="w-14 h-14 bg-primary-container/10 rounded-full flex items-center justify-center mb-5 transition-transform duration-300 hover:scale-110">
-                  <Icon className="w-7 h-7 text-primary-container" />
+              <div key={title} className="flex flex-col items-center text-center gap-1 w-full sm:w-[calc(50%-16px)] md:w-[calc(33.333%-22px)] px-4">
+                <div className="w-10 h-10 bg-primary-container/10 rounded-lg flex items-center justify-center mb-2">
+                  <Icon className="w-5 h-5 text-primary-container" />
                 </div>
-                <h3 className="font-display font-bold text-onSurface text-lg mb-3">{title}</h3>
-                <div className="flex-1 flex flex-col justify-center gap-1 w-full">
-                  {lines.map((l) =>
-                    href ? (
-                      <a key={l} href={href} target="_blank" rel="noopener noreferrer" className="text-sm text-onSurfaceVariant hover:text-primary-container transition-colors flex items-center justify-center gap-1 font-medium py-0.5">
-                        {l} <FiArrowUpRight className="w-3.5 h-3.5" />
-                      </a>
-                    ) : (
-                      <p key={l} className="text-sm text-onSurfaceVariant leading-relaxed font-medium">{l}</p>
-                    )
-                  )}
-                </div>
-                {note && (
-                  <div className="border-t border-surface-high/60 pt-3 w-full mt-4">
-                    <p className="text-xs text-onSurfaceVariant/70 leading-relaxed font-medium">{note}</p>
-                  </div>
+                <p className="font-display font-bold text-onSurface text-sm">{title}</p>
+                {lines.map((l) =>
+                  href ? (
+                    <a key={l} href={href} target="_blank" rel="noopener noreferrer" className="text-xs text-onSurfaceVariant hover:text-primary-container transition-colors flex items-center gap-1 justify-center w-fit">
+                      {l} <FiArrowUpRight className="w-3 h-3" />
+                    </a>
+                  ) : (
+                    <p key={l} className="text-xs text-onSurfaceVariant">{l}</p>
+                  )
                 )}
+                {note && <p className="text-[10px] text-onSurfaceVariant/70 mt-0.5 max-w-[240px]">{note}</p>}
               </div>
             ))}
           </div>
 
           {/* Social Contacts */}
           <div className="border-t border-surface-high/60 pt-8">
-            <h3 className="text-center font-display font-bold text-lg text-onSurface mb-6">Connect with us on Social Media</h3>
-            <div className="flex flex-wrap gap-6 justify-center max-w-5xl mx-auto">
+            <h3 className="text-center font-display font-bold text-xs text-onSurfaceVariant mb-6 uppercase tracking-wider">Connect with us on Social Media</h3>
+            <div className="flex flex-wrap gap-8 justify-center max-w-4xl mx-auto">
               {SOCIAL_CONTACTS.map(({ Icon, title, lines, href }) => (
-                <div key={title} className="flex items-center gap-4 p-4 rounded-xl border border-surface-high bg-surface-lowest shadow-sm hover:shadow-md transition-all duration-200 w-full sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] min-w-[240px]">
-                  <div className="w-11 h-11 bg-primary-container/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <Icon className="w-5.5 h-5.5 text-primary-container" />
+                <div key={title} className="flex flex-col items-center text-center gap-1 w-full sm:w-[calc(50%-16px)] md:w-[calc(33.333%-22px)] px-4">
+                  <div className="w-10 h-10 bg-primary-container/10 rounded-lg flex items-center justify-center mb-2">
+                    <Icon className="w-5 h-5 text-primary-container" />
                   </div>
-                  <div>
-                    <h4 className="font-display font-bold text-onSurface text-sm mb-1">{title}</h4>
-                    {lines.map((l) => (
-                      <a key={l} href={href} target="_blank" rel="noopener noreferrer" className="text-xs text-onSurfaceVariant hover:text-primary-container transition-colors flex items-center gap-1">
-                        {l} <FiArrowUpRight className="w-3 h-3" />
-                      </a>
-                    ))}
-                  </div>
+                  <p className="font-display font-bold text-onSurface text-sm">{title}</p>
+                  {lines.map((l) => (
+                    <a key={l} href={href} target="_blank" rel="noopener noreferrer" className="text-xs text-onSurfaceVariant hover:text-primary-container transition-colors flex items-center gap-1 justify-center w-fit">
+                      {l} <FiArrowUpRight className="w-3 h-3" />
+                    </a>
+                  ))}
                 </div>
               ))}
             </div>

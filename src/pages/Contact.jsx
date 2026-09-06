@@ -209,7 +209,7 @@ export default function Contact() {
                   <span className="text-onSurfaceVariant">Saturday</span>
                   <div className="text-right">
                     <span className="font-semibold text-onSurface block">10:00 AM – 2:00 PM</span>
-                    <span className="text-onSurfaceVariant italic text-xs">By Appointment</span>
+                    <span className="text-onSurfaceVariant italic text-xs">(Sat - By Appointment)</span>
                   </div>
                 </div>
               </div>

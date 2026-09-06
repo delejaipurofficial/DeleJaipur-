@@ -201,15 +201,17 @@ export default function Contact() {
                 <h3 className="font-display font-bold text-onSurface">Office Hours</h3>
               </div>
               <div className="space-y-2 text-sm">
-                {[
-                  ['Monday – Friday', '10:00 AM – 5:00 PM'],
-                  ['Saturday', '10:00 AM – 2:00 PM (By Appointment)'],
-                ].map(([day, time]) => (
-                  <div key={day} className="flex justify-between">
-                    <span className="text-onSurfaceVariant">{day}</span>
-                    <span className="font-semibold text-onSurface">{time}</span>
+                <div className="flex justify-between">
+                  <span className="text-onSurfaceVariant">Monday – Friday</span>
+                  <span className="font-semibold text-onSurface">10:00 AM – 5:00 PM</span>
+                </div>
+                <div className="flex justify-between items-start">
+                  <span className="text-onSurfaceVariant">Saturday</span>
+                  <div className="text-right">
+                    <span className="font-semibold text-onSurface block">10:00 AM – 2:00 PM</span>
+                    <span className="text-onSurfaceVariant italic text-xs">By Appointment</span>
                   </div>
-                ))}
+                </div>
               </div>
             </div>
           </div>

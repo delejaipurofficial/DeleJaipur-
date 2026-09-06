@@ -204,7 +204,6 @@ export default function Contact() {
                 {[
                   ['Monday – Friday', '10:00 AM – 5:00 PM'],
                   ['Saturday', '10:00 AM – 2:00 PM'],
-                  ['Sunday', 'By Appointment'],
                 ].map(([day, time]) => (
                   <div key={day} className="flex justify-between">
                     <span className="text-onSurfaceVariant">{day}</span>

@@ -142,7 +142,7 @@ export default function Navbar() {
             <img
               src="/dele-logo.png"
               alt="Dele Jaipur Logo"
-              className={`h-12 w-auto object-contain transition-all duration-300 group-hover:scale-105 rounded-sm ${!scrolled && isHome ? 'bg-white/95 p-0.5 shadow-sm' : ''}`}
+              className="h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
               style={{ border: '1px solid #CC0000' }}
             />
           </Link>

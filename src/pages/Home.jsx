@@ -202,7 +202,7 @@ export default function Home() {
         </button>
 
         {/* Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center h-full pt-16 pb-16">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center h-full pt-28 pb-16">
           <div className={`max-w-2xl transition-all duration-500 ${heroAnimating ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
             {/* Tag */}
             <div className="inline-flex items-center gap-2 bg-primary-container/90 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full mb-4 sm:mb-6">
